@@ -12,7 +12,8 @@ Last Edited: 10/13/2020
 #include "hero.h"
 #include <vector>
 
-map setupInitialValues(string[], int);
+map chooseMap();
+map setupInitialValues(string[], int S);
 void convertInput(int*, int*, string, map);
 string printInfo(map, int);
 

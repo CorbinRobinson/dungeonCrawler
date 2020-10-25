@@ -16,10 +16,10 @@ Last Edited: 10/13/2020
 
 using namespace std;
 
-map setupInitialValues(string sArr[])
+map setupInitialValues(string sArr[], int S)
 {
     map theMap;
-    theMap.mapVec = makeMap(sArr, 3);
+    theMap.mapVec = makeMap(sArr, S);
     for (int i = 0; i < theMap.mapVec.size(); i++)
     {
         for (int j = 0; j < theMap.mapVec[0].size(); j++)
@@ -64,6 +64,33 @@ map setupInitialValues(string sArr[])
         }
     }
     return theMap;
+}
+
+map chooseMap() {
+    string sArr[3] = { "wwwwwwwwww", "w.      Sw", "wwwwwwwwww" };
+    string mArr[11] = { "wwwwwwwwwwwwwwwwwwww", "wo...w........w....w", "w.ww.w.wwwwww.w.ww.w", "w.w..............w.w", "w.w.ww.ww  ww.ww.w.w", "w......wE  Ew......w", "w.w.ww.wwwwww.ww.w.w", "w.w..............w.w", "w.ww.w.wwwwww.w.ww.w", "w....w...S....w...ow", "wwwwwwwwwwwwwwwwwwww" };
+    string lArr[45] = { "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww", "w         w               w               w w", "w w       w www           w           w   w w", "w w       w   w                       w   w w", "w wwwww www www           wwwwwww www w   w w", "w w       w w             w         w w   w w", "w w       www w           w  S      w w   w w", "w             w           w           w     w", "www       wwwww           w         w w   w w", "w         w               w           w   w w", "wwwwwwwwwww   w           w         wwwww w w", "w         w   w           w             w   w", "w         w   www wwwww w w wwwww www   w   w", "w             w   w     w   w   w w w   w   w", "w w wwwwwww   w   w     w   w   w w w   w   w", "w w       w   w   w     w   w   w   w   w   w", "w w wwwwwww   w   w     w   w   www w   w   w", "w   w         w   w     w   w   w           w", "w www     wwwww   w     w   w   wwwww wwwww w", "w   w                   w       w         w w", "www w     w w www w     w wwwwwww         w w", "w   w     w w   w w         w   w           w", "w www     w w   wwwwwww w www w w         w w", "w   w       w   w     w     w w           w w", "w www wwwwwww   w     w     w wwwwwwwwwww www", "w w       w     w           w           w   w", "w w     w w w   w     wwwww w     w     w   w", "w w     w   w   w         w w     w     w   w", "w w     w www   w     www www     w     w   w", "w w     w   w   w       w         w         w", "w wwwww www wwwwwww wwwwwwwww     w     w   w", "w w               w         w     w     w   w", "w w           w   w         w     wwwwwwwww w", "w w           w   w         w     w     w   w", "w w           www w         w     w     w   w", "w               w           w               w", "w w           w wwwwwwwww wwwww www     www w", "w w           w       w       w w       w   w", "w w           w       w       w w w     w   w", "w w           w       w       w   w         w", "w www wwwwwwwww       www wwwwwwwwwwwww www w", "w w                         w               w", "w w       w   www wwwww     w     w       www", "w w       w                       w         w", "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"};
+    //printMap(map);
+    int mapC;
+    int mapS;
+    cout << "Please choose a map size! Type 1 for a small map, 2 for a medium map, or 3 for a large map! (full screen required for large map)" << endl;
+    cin >> mapC;
+    map theMap;
+    if (mapC == 1) {
+        mapS = 3;
+        map theMap = setupInitialValues(sArr, mapS);
+        return theMap;
+    }
+    else if (mapC == 2) {
+        mapS = 11;
+        map theMap = setupInitialValues(mArr, mapS);
+        return theMap;
+    }
+    else if (mapC == 3) {
+        mapS = 45;
+        map theMap = setupInitialValues(lArr, mapS);
+        return theMap;
+    }
 }
 
 string printInfo(map theMap, int x)
@@ -122,9 +149,9 @@ void convertInput(int *x, int *y, string input, map theMap)
 
 int main()
 {
-    string sArr[3] = {"wwwwwwwwww", "w.      Sw", "wwwwwwwwww"};
+    map theMap = chooseMap();
     //printMap(map);
-    map theMap = setupInitialValues(sArr);
+    //map theMap = setupInitialValues(sArr);
     bool wonered = false;
     while (!wonered)
     {
