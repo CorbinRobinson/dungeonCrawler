@@ -4,6 +4,14 @@ Created by: Christopher Newton, Corbin Robinson, and Zaniken Gurule
 CS 3150
 Last Edited: 10/13/2020
 */
+
+/*
+    ENUM: We used an ENUM within the character struct to track alive or dead. It's the break condition for the main while
+    loop running the game.
+    Extern: We have a an int extern moveCount within map that keeps track of the number of moves taken by the player.
+    Structs: We have multiple different structs within gameObject and map.
+    Random Number Generator: We assign traps random damage values between 1-3 using "trap.dmg = rand() % 3 + 1".
+*/
 //INCLUDES
 #include <iostream>
 #include <vector>
@@ -12,14 +20,14 @@ Last Edited: 10/13/2020
 // #include <conio.h>
 #include "map.h"
 #include "driver.h"
-#include "hero.h"
+#include "gameObject.h"
 
 using namespace std;
 
-map setupInitialValues(string sArr[], int S)
+map setupInitialValues(string sArr[])
 {
     map theMap;
-    theMap.mapVec = makeMap(sArr, S);
+    theMap.mapVec = makeMap(sArr, 3);
     for (int i = 0; i < theMap.mapVec.size(); i++)
     {
         for (int j = 0; j < theMap.mapVec[0].size(); j++)
@@ -49,48 +57,20 @@ map setupInitialValues(string sArr[], int S)
                 hero.strength = 5;
                 hero.hp = 10;
                 hero.goldCount = 0;
+                hero.status = alive;
                 theMap.hero = hero;
             }
-            else if (theMap.mapVec[i][j] == "E")
+            else if (theMap.mapVec[i][j] == "x")
             {
-                character hero;
-                hero.xPos = j;
-                hero.yPos = i;
-                hero.strength = 5;
-                hero.hp = 10;
-                hero.goldCount = 0;
-                theMap.eVec.push_back(hero);
+                item trap;
+                trap.xPos = j;
+                trap.yPos = i;
+                trap.dmg = rand() % 3 + 1;
+                theMap.tVec.push_back(trap);
             }
         }
     }
     return theMap;
-}
-
-map chooseMap() {
-    string sArr[3] = { "wwwwwwwwww", "w.      Sw", "wwwwwwwwww" };
-    string mArr[11] = { "wwwwwwwwwwwwwwwwwwww", "wo...w........w....w", "w.ww.w.wwwwww.w.ww.w", "w.w..............w.w", "w.w.ww.ww  ww.ww.w.w", "w......wE  Ew......w", "w.w.ww.wwwwww.ww.w.w", "w.w..............w.w", "w.ww.w.wwwwww.w.ww.w", "w....w...S....w...ow", "wwwwwwwwwwwwwwwwwwww" };
-    string lArr[45] = { "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww", "w         w               w               w w", "w w       w www           w           w   w w", "w w       w   w                       w   w w", "w wwwww www www           wwwwwww www w   w w", "w w       w w             w         w w   w w", "w w       www w           w  S      w w   w w", "w             w           w           w     w", "www       wwwww           w         w w   w w", "w         w               w           w   w w", "wwwwwwwwwww   w           w         wwwww w w", "w         w   w           w             w   w", "w         w   www wwwww w w wwwww www   w   w", "w             w   w     w   w   w w w   w   w", "w w wwwwwww   w   w     w   w   w w w   w   w", "w w       w   w   w     w   w   w   w   w   w", "w w wwwwwww   w   w     w   w   www w   w   w", "w   w         w   w     w   w   w           w", "w www     wwwww   w     w   w   wwwww wwwww w", "w   w                   w       w         w w", "www w     w w www w     w wwwwwww         w w", "w   w     w w   w w         w   w           w", "w www     w w   wwwwwww w www w w         w w", "w   w       w   w     w     w w           w w", "w www wwwwwww   w     w     w wwwwwwwwwww www", "w w       w     w           w           w   w", "w w     w w w   w     wwwww w     w     w   w", "w w     w   w   w         w w     w     w   w", "w w     w www   w     www www     w     w   w", "w w     w   w   w       w         w         w", "w wwwww www wwwwwww wwwwwwwww     w     w   w", "w w               w         w     w     w   w", "w w           w   w         w     wwwwwwwww w", "w w           w   w         w     w     w   w", "w w           www w         w     w     w   w", "w               w           w               w", "w w           w wwwwwwwww wwwww www     www w", "w w           w       w       w w       w   w", "w w           w       w       w w w     w   w", "w w           w       w       w   w         w", "w www wwwwwwwww       www wwwwwwwwwwwww www w", "w w                         w               w", "w w       w   www wwwww     w     w       www", "w w       w                       w         w", "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"};
-    //printMap(map);
-    int mapC;
-    int mapS;
-    cout << "Please choose a map size! Type 1 for a small map, 2 for a medium map, or 3 for a large map! (full screen required for large map)" << endl;
-    cin >> mapC;
-    map theMap;
-    if (mapC == 1) {
-        mapS = 3;
-        map theMap = setupInitialValues(sArr, mapS);
-        return theMap;
-    }
-    else if (mapC == 2) {
-        mapS = 11;
-        map theMap = setupInitialValues(mArr, mapS);
-        return theMap;
-    }
-    else if (mapC == 3) {
-        mapS = 45;
-        map theMap = setupInitialValues(lArr, mapS);
-        return theMap;
-    }
 }
 
 string printInfo(map theMap, int x)
@@ -103,7 +83,7 @@ string printInfo(map theMap, int x)
         switch (x)
         {
         case 1:
-            cout << "Input w, a, s, d, to go up, left, down, right respectively: " << endl;
+            cout << "Input v to end the game or w, a, s, d, to go up, left, down, right respectively: " << endl;
             break;
         case 2:
             cout << "Invalid input, try again" << endl;
@@ -114,11 +94,10 @@ string printInfo(map theMap, int x)
         }
         string input;
         cin >> input;
-        if (input == "w" || input == "a" || input == "s" || input == "d")
+        if (input == "w" || input == "a" || input == "s" || input == "d" || input == "v")
         {
             return input;
         }
-        //printf("%c[2K", 27);
         x = 2;
     }
 }
@@ -149,22 +128,41 @@ void convertInput(int *x, int *y, string input, map theMap)
 
 int main()
 {
-    map theMap = chooseMap();
+    string sArr[3] = {"wwwwwwwwww", "w.x     Sw", "wwwwwwwwww"};
     //printMap(map);
-    //map theMap = setupInitialValues(sArr);
-    bool wonered = false;
-    while (!wonered)
+    map theMap = setupInitialValues(sArr);
+    //bool wonered = false;
+    while (theMap.hero.status == alive)
     {
         string input = printInfo(theMap, 1);
+        if (input == "v")
+        {
+            endScreen(&theMap);
+        }
         int newX, newY;
         convertInput(&newX, &newY, input, theMap);
-        if (isValidMove(newX, newY, theMap))
+        if (isValidMove(newX, newY, &theMap))
         {
             move(newX, newY, &theMap);
-        } else{
+        }
+        else
+        {
             printInfo(theMap, 3);
         }
     }
+    system("CLS");
+    cout << R"(
+__/\\\________/\\\_______/\\\\\_______/\\\________/\\\____________/\\\\\\\\\\\\_____/\\\\\\\\\\\__/\\\\\\\\\\\\\\\__/\\\\\\\\\\\\____        
+ _\///\\\____/\\\/______/\\\///\\\____\/\\\_______\/\\\___________\/\\\////////\\\__\/////\\\///__\/\\\///////////__\/\\\////////\\\__       
+  ___\///\\\/\\\/______/\\\/__\///\\\__\/\\\_______\/\\\___________\/\\\______\//\\\_____\/\\\_____\/\\\_____________\/\\\______\//\\\_      
+   _____\///\\\/_______/\\\______\//\\\_\/\\\_______\/\\\___________\/\\\_______\/\\\_____\/\\\_____\/\\\\\\\\\\\_____\/\\\_______\/\\\_     
+    _______\/\\\_______\/\\\_______\/\\\_\/\\\_______\/\\\___________\/\\\_______\/\\\_____\/\\\_____\/\\\///////______\/\\\_______\/\\\_    
+     _______\/\\\_______\//\\\______/\\\__\/\\\_______\/\\\___________\/\\\_______\/\\\_____\/\\\_____\/\\\_____________\/\\\_______\/\\\_   
+      _______\/\\\________\///\\\__/\\\____\//\\\______/\\\____________\/\\\_______/\\\______\/\\\_____\/\\\_____________\/\\\_______/\\\__  
+       _______\/\\\__________\///\\\\\/______\///\\\\\\\\\/_____________\/\\\\\\\\\\\\/____/\\\\\\\\\\\_\/\\\\\\\\\\\\\\\_\/\\\\\\\\\\\\/___ 
+        _______\///_____________\/////__________\/////////_______________\////////////_____\///////////__\///////////////__\////////////_____
+    )" << endl;
+
 
     // ifstream file;
     // file.open("textMaze.txt");

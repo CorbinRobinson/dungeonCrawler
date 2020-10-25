@@ -4,7 +4,7 @@
 
 #include <vector>
 #include <string>
-#include "hero.h"
+#include "gameObject.h"
 using namespace std;
 
 extern int moveCount;
@@ -13,14 +13,15 @@ void printMap(vector<vector<string>>);
 
 struct map{
     int goldCount = 0;
-    vector<character> eVec;
+    vector<item> tVec;
     character hero;
     vector<item> wVec;
     vector<vector<string>> mapVec;
 };
 
-bool isValidMove(int, int, map);
+bool isValidMove(int, int, map*);
 void move(int, int, map*);
+void endScreen(map*);
 
 
 #endif

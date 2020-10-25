@@ -9,11 +9,12 @@ Last Edited: 10/13/2020
 #define DRIVER_H
 
 #include "map.h"
-#include "hero.h"
+#include "gameObject.h"
 #include <vector>
 
-map chooseMap();
-map setupInitialValues(string[], int S);
+//enum DIRECTION {w,a,s,d};
+
+map setupInitialValues(string[], int);
 void convertInput(int*, int*, string, map);
 string printInfo(map, int);
 
