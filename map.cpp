@@ -12,7 +12,7 @@ Last Edited: 10/13/2020
 using namespace std;
 int moveCount = 0;
 
-vector<vector<string>> makeMap(string sArr[], size_t arrSize)
+vector<vector<string>> makeMap(string sArr[], int arrSize)
 {
     vector<vector<string>> tempMap;
     

@@ -8,7 +8,7 @@
 using namespace std;
 
 extern int moveCount;
-vector<vector<string>> makeMap(string[], size_t);
+vector<vector<string>> makeMap(string[], int);
 void printMap(vector<vector<string>>);
 
 struct map{

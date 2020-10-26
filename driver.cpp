@@ -27,7 +27,7 @@ using namespace std;
 map setupInitialValues(string sArr[])
 {
     map theMap;
-    theMap.mapVec = makeMap(sArr, 3);
+    theMap.mapVec = makeMap(sArr, 8);
     for (int i = 0; i < theMap.mapVec.size(); i++)
     {
         for (int j = 0; j < theMap.mapVec[0].size(); j++)
@@ -128,7 +128,7 @@ void convertInput(int *x, int *y, string input, map theMap)
 
 int main()
 {
-    string sArr[3] = {"wwwwwwwwww", "w.x     Sw", "wwwwwwwwww"};
+    string sArr[8] = {"wwwwwwww", "w.    .w", "w   S  w", "w wwwwxw", "wxw    w", "wxwxwwww", "w.w   .w", "wwwwwwww"};
     //printMap(map);
     map theMap = setupInitialValues(sArr);
     //bool wonered = false;
